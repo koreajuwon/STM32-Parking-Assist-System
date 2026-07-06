@@ -51,7 +51,23 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == GPIO_PIN_1)
+    {
+        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_SET)
+        {
+            // Rising edge
+            __HAL_TIM_SET_COUNTER(&htim2, 0);
+        }
+        else
+        {
+            // Falling edge
+            ic_end = __HAL_TIM_GET_COUNTER(&htim2);
+            ic_done = 1;
+        }
+    }
+}
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/

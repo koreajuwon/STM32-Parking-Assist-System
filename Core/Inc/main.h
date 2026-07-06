@@ -31,7 +31,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+void DWT_Init(void);
+void Delay_us(uint32_t us);
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

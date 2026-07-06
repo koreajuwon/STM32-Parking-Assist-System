@@ -25,7 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ultrasonic.h"
+#include "delay.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,17 +93,21 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM2_Init();
   MX_USART2_UART_Init();
+  DWT_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start(&htim2);
+  Ultrasonic_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	  Ultrasonic_Trigger();
+	  while (!ic_done);
 
-    /* USER CODE BEGIN 3 */
+
+	  float dist = Ultrasonic_GetDistance();
   }
   /* USER CODE END 3 */
 }
