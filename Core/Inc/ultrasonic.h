@@ -10,6 +10,6 @@ extern volatile uint8_t ic_done;
 void Ultrasonic_Init(void);
 void Ultrasonic_Trigger(void);
 void Ultrasonic_Update(void);
-float Ultrasonic_GetDistance(void);
+int Ultrasonic_GetDistance(void);
 
 #endif /* INC_ULTRASONIC_H_ */

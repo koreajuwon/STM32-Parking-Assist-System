@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include "ultrasonic.h"
 #include "delay.h"
+#include "parking.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,6 +107,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  char *stateStr = "UNKNOWN";
+
 	  Ultrasonic_Trigger();
 
 	  HAL_Delay(60);
@@ -114,10 +117,26 @@ int main(void)
 
 	  if(distance >= 0)
 	  {
-		  sprintf(txBuffer, "Distance : %dcm\r\n", distance);
-		  HAL_UART_Transmit(&huart2, (uint8_t*)txBuffer, strlen(txBuffer), 100);
-		  HAL_Delay(300);
+	  Parking_Update(distance);
+
+	  ParkingState state = Parking_GetState();
+
+	  if(state == PARKING_SAFE)
+	  {
+		  stateStr = "SAFE";
 	  }
+	  else if(state == PARKING_CAUTION)
+	  {
+		  stateStr = "CAUTION";
+	  }
+	  else
+	  {
+		  stateStr = "DANGER";
+	  }
+	      sprintf(txBuffer, "Distance : %d cm\r\nState = %s\r\n\r\n", distance, stateStr);
+	      HAL_UART_Transmit(&huart2, (uint8_t*)txBuffer, strlen(txBuffer), 100);
+	  }
+	      HAL_Delay(300);
   }
   /* USER CODE END 3 */
 }
