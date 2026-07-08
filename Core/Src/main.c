@@ -30,6 +30,7 @@
 #include "ultrasonic.h"
 #include "delay.h"
 #include "parking.h"
+#include "led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -121,6 +122,8 @@ int main(void)
 
 	  ParkingState state = Parking_GetState();
 
+	   LED_Update(state);
+
 	  if(state == PARKING_SAFE)
 	  {
 		  stateStr = "SAFE";
@@ -137,6 +140,7 @@ int main(void)
 	      HAL_UART_Transmit(&huart2, (uint8_t*)txBuffer, strlen(txBuffer), 100);
 	  }
 	      HAL_Delay(300);
+
   }
   /* USER CODE END 3 */
 }

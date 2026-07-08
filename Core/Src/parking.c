@@ -4,11 +4,11 @@ static ParkingState currentState = PARKING_SAFE;
 
 void Parking_Update(int distance)
 {
-	if(distance > 30 )
+	if(distance > 10 )
 	{
 		currentState = PARKING_SAFE;
 	}
-	else if(distance > 15 )
+	else if(distance > 5 )
 	{
 		currentState = PARKING_CAUTION;
 	}
