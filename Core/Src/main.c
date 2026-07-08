@@ -22,6 +22,8 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include <stdio.h>
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,7 +49,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+int distance;
+char txBuffer[50];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,10 +107,17 @@ int main(void)
   while (1)
   {
 	  Ultrasonic_Trigger();
-	  while (!ic_done);
 
+	  HAL_Delay(60);
 
-	  float dist = Ultrasonic_GetDistance();
+	  distance = Ultrasonic_GetDistance();
+
+	  if(distance >= 0)
+	  {
+		  sprintf(txBuffer, "Distance : %dcm\r\n", distance);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)txBuffer, strlen(txBuffer), 100);
+		  HAL_Delay(300);
+	  }
   }
   /* USER CODE END 3 */
 }

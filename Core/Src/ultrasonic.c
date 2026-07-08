@@ -1,5 +1,7 @@
 #include "ultrasonic.h"
 #include "delay.h"
+#include "tim.h"
+
 
 volatile uint32_t ic_start = 0;
 volatile uint32_t ic_end = 0;
