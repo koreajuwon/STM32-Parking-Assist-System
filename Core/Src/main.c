@@ -32,6 +32,9 @@
 #include "parking.h"
 #include "led.h"
 #include "buzzer.h"
+#include "ssd1306.h"
+#include "ssd1306_fonts.h"
+#include "oled_display.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,6 +106,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   Ultrasonic_Init();
+  ssd1306_Init();
+  ssd1306_Fill(Black);
+  ssd1306_UpdateScreen();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -125,6 +131,7 @@ int main(void)
 
 	   LED_Update(state);
 	   Buzzer_Update(state);
+	   OLED_Update(distance, state);
 
 	  if(state == PARKING_SAFE)
 	  {
