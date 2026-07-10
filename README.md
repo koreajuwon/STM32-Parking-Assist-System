@@ -35,6 +35,7 @@ HC-SR04 초음파 센서를 이용하여 장애물과의 거리를 측정하고,
 
 ## 개발 환경
 
+* STM32CubeMX
 * STM32CubeIDE
 * STM32 HAL Driver
 * Language : C
